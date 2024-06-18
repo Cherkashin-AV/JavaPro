@@ -1,0 +1,19 @@
+C:\Soft\Java\jdk-21\bin\java.exe -javaagent:C:\Soft\Idea\lib\idea_rt.jar=60548:C:\Soft\Idea\bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath C:\Users\ACherkashin\IdeaProjects\JPro\Task1\target\classes ru.vtb.javapro.test_engine.Main
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass beforeSuite
+INFO: beforeSuite
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass beforeTest
+INFO: beforeTest
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass test1
+INFO: test(2,  sss) priority=1
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass afterTest
+INFO: afterTest
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass beforeTest
+INFO: beforeTest
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass test
+INFO: test(1,  ddd) priority=5
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass afterTest
+INFO: afterTest
+июн. 18, 2024 8:37:15 AM ru.vtb.javapro.test_engine.tests.TestClass afterSuite
+INFO: afterSuite
+
+Process finished with exit code 0
