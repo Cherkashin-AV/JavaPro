@@ -10,40 +10,39 @@ public class ThreadPool {
     private final LinkedList<Runnable> queue = new LinkedList<>();
     //Признак остановки
     private volatile boolean isShutDown = false;
-    //Timeout
-    private int timeout = 200;
+    //Список потоков
+    private final LinkedList<Thread> threads = new LinkedList<>();
 
-    public void setTimeout(int timeout) {
-        if (timeout<100){
-            throw new IllegalArgumentException("Значение timeout должно быть больше 100 мс");
-        }
-        this.timeout = timeout;
-    }
 
     public ThreadPool(int threadsCount) {
-        for (int i = 0; i <= threadsCount; i++) {
-            new Thread(this::runNextTaskFromQueue).start();
+        for (int i = 0; i < threadsCount; i++) {
+            Thread thread = new Thread(this::runNextTaskFromQueue);
+            thread.start();
+            threads.add(thread);
         }
     }
 
     private void runNextTaskFromQueue() {
         Runnable curTask;
         while (true) {
-            synchronized(this) {
-                while (queue.isEmpty()) {
+            synchronized(queue) {
+                if (queue.isEmpty()) {
+                    //Если остановка пула, пробуждаем потоки, чтобы они завершили свою работу
+                    if (isShutDown && queue.isEmpty()){
+                        queue.notifyAll();
+                        break;
+                    }
+                    //Переводим поток в ожидание
                     try {
-                        Thread.sleep(timeout);
-                        if (isShutDown) {
-                            return;
-                        }
+                        queue.wait();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        isShutDown = true;
+                        Thread.currentThread().interrupt();
                     }
                 }
-                synchronized(queue) {
-                    curTask = queue.pollFirst();
-                }
+                curTask = queue.pollFirst();
             }
+            //Выполняем задачу вне блока синхронизации
             curTask.run();
         }
     }
@@ -52,8 +51,10 @@ public class ThreadPool {
         if (isShutDown){
             throw new  IllegalStateException("Пул потоков в процессе остановки");
         }
+        //Добавляем задачу в очередь и оповещяем спящий поток, что пришла задача
         synchronized(queue) {
             queue.addLast(task);
+            queue.notify();
         }
     }
 
@@ -62,8 +63,10 @@ public class ThreadPool {
     }
 
     public void awaitTermination() throws InterruptedException {
-        while (!queue.isEmpty()) {
-            Thread.sleep(timeout);
+        //Джойним все работающие потоки
+        for (Thread thread : threads){
+            if (thread.isAlive())
+                thread.join();
         }
     }
 
