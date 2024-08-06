@@ -1,4 +1,4 @@
-package ru.vtb.javapro.task4.Repository;
+package ru.vtb.javapro.task4.repository;
 
 
 import java.sql.Connection;
@@ -17,14 +17,14 @@ import ru.vtb.javapro.task4.entity.Product.ProductType;
 
 
 @Repository
-public class ProductRepository {
+public class ProductDAORepository {
 
-    private static final Logger log = LoggerFactory.getLogger(ProductRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(ProductDAORepository.class);
 
 
     private final Connection connection;
 
-    public ProductRepository(Connection connection) {
+    public ProductDAORepository(Connection connection) {
         this.connection = connection;
     }
 

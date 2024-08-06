@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.vtb.javapro.task4.Repository.ProductException;
-import ru.vtb.javapro.task4.Repository.UserException;
+import ru.vtb.javapro.task4.repository.ProductException;
+import ru.vtb.javapro.task4.repository.UserException;
 import ru.vtb.javapro.task4.dto.ResponseErrorDto;
 
 

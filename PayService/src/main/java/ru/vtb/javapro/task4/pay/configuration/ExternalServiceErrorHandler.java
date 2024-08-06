@@ -20,9 +20,6 @@ public class ExternalServiceErrorHandler implements ResponseErrorHandler {
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        if (response.getStatusCode().is4xxClientError() ||
-                response.getStatusCode().is5xxServerError()){
-            throw new IntegrationException("Ошибка внешнего сервера:" +response.getBody(), HttpStatus.BAD_REQUEST);
-        }
+        throw new IntegrationException("Ошибка внешнего сервера:" + response.getBody(), HttpStatus.BAD_REQUEST);
     }
 }

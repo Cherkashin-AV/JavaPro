@@ -1,22 +1,35 @@
 package ru.vtb.javapro.task4.entity;
 
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ru.vtb.javapro.task4.dto.ProductDTO;
 
 
-@Getter @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "accountnumber")
     private String accountNumber;
     private BigDecimal balance;
+    @Column(name = "producttype")
+    @Convert(converter = ProductTypeConverter.class)
     private ProductType productType;
 
     @Override

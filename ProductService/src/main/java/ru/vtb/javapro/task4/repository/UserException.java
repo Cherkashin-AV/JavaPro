@@ -1,18 +1,17 @@
-package ru.vtb.javapro.task4.Repository;
+package ru.vtb.javapro.task4.repository;
 
 
 import org.springframework.http.HttpStatus;
 
 
-public class ProductException extends RuntimeException{
-
+public class UserException extends RuntimeException{
     private final HttpStatus status;
 
     public HttpStatus getStatus() {
         return status;
     }
 
-    public ProductException(HttpStatus status, String message) {
+    public UserException(HttpStatus status, String message) {
         super(message);
         this.status = status;
     }
