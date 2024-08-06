@@ -4,44 +4,45 @@ package ru.vtb.javapro.task4.service;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import ru.vtb.javapro.task4.repository.ClientJPARepository;
 import ru.vtb.javapro.task4.entity.Client;
-import ru.vtb.javapro.task4.repository.ClientDAORepository;
 
 
 @Service
-public class ClientServiceImpl implements ClientService {
+@Primary
+public class ClientServiceJPA implements  ClientService{
 
-    private final ClientDAORepository clientDao;
+    private final ClientJPARepository clientJPARepository;
 
-    public ClientServiceImpl(@Autowired
-    ClientDAORepository userDao) {
-        this.clientDao = userDao;
+    public ClientServiceJPA(ClientJPARepository clientJPARepository) {
+        this.clientJPARepository = clientJPARepository;
     }
 
     @Override
     public Long insert(Client user) throws SQLException {
-        return clientDao.insert(user);
+        clientJPARepository.save(user);
+        return user.getId();
     }
 
     @Override
     public void update(Client user) throws SQLException {
-        clientDao.update(user);
+        clientJPARepository.save(user);
     }
 
     @Override
     public void delete(Long id) throws SQLException {
-        clientDao.delete(id);
+        clientJPARepository.deleteById(id);
     }
 
     @Override
     public Optional<Client> getClient(Long id) throws SQLException {
-        return clientDao.getEntity(id);
+        return clientJPARepository.findById(id);
     }
 
     @Override
     public List<Client> getClients() throws SQLException {
-        return clientDao.getEntityList();
+        return clientJPARepository.findAll();
     }
 }

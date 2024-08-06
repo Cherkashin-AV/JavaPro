@@ -17,7 +17,7 @@ import ru.vtb.javapro.task4.pay.configuration.RestTemplateProperties;
 public class PayServiceConfig {
 
     @Bean
-    public RestTemplate productRestClient(ProductServiceProperties productServiceProperties,
+    public RestTemplate restTemplateProductService(ProductServiceProperties productServiceProperties,
         ExternalServiceErrorHandler productErrorHandler) {
 
         RestTemplateProperties serviceProperties = productServiceProperties.getProductService();
@@ -30,7 +30,7 @@ public class PayServiceConfig {
     }
 
     @Bean
-    public RestTemplate clientRestClient(ClientServiceProperties clientServiceProperties,
+    public RestTemplate restTemplateClientService(ClientServiceProperties clientServiceProperties,
         ExternalServiceErrorHandler productErrorHandler){
 
         RestTemplateProperties serviceProperties = clientServiceProperties.getProductService();

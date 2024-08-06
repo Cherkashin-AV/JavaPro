@@ -6,15 +6,16 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import ru.vtb.javapro.task4.dto.ProductDTO;
 import ru.vtb.javapro.task4.pay.service.ClientService;
 import ru.vtb.javapro.task4.pay.service.ProductService;
 
 
 @RestController
+@RequestMapping("/client")
 public class PayController {
 
     private final ProductService productService;
@@ -25,12 +26,12 @@ public class PayController {
         this.clientService = clientService;
     }
 
-    @GetMapping("/client/{clientId}/products")
+    @GetMapping("/{clientId}/products")
     public List<ProductDTO> getProducts(@PathVariable Long clientId){
         return clientService.getProducts(clientId);
     }
 
-    @PutMapping("/client/{clientId}/products/{productId}")
+    @PutMapping("/{clientId}/products/{productId}")
     public void checkProducts(
         @PathVariable Long clientId,
         @PathVariable Long productId,

@@ -1,4 +1,4 @@
-package ru.vtb.javapro.task4.Repository;
+package ru.vtb.javapro.task4.repository;
 
 
 import java.sql.Connection;
@@ -17,14 +17,14 @@ import ru.vtb.javapro.task4.entity.Product;
 
 
 @Component
-public class ClientRepository {
+public class ClientDAORepository {
 
-    private static final Logger log = LoggerFactory.getLogger(ClientRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(ClientDAORepository.class);
 
     private final Connection connection;
-    private final ProductRepository productDao;
+    private final ProductDAORepository productDao;
 
-    public ClientRepository(Connection connection, ProductRepository productDao) {
+    public ClientDAORepository(Connection connection, ProductDAORepository productDao) {
         this.connection = connection;
         this.productDao = productDao;
     }
@@ -44,7 +44,7 @@ public class ClientRepository {
                         result = generatedKeys.getLong("id");
                         rec.setId(result);
                         Long producstid = generatedKeys.getLong("products");
-                        for (Product product: rec.getProducts()) {
+                        for (Product product: rec.getProductList()) {
                             productDao.insert(producstid, product);
                         }
                     }
